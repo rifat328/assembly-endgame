@@ -1,5 +1,9 @@
 import { useState } from "react";
 import "./App.css";
+import Heading from "./component/Heading";
+import Message from "./component/Message";
+import Languages from "./component/Languages";
+import Inputs from "./component/Inputs";
 /*# What are the main containers of elements 
     i need in this app?
     => * need heading and sub headings , then game won and loss section based on
@@ -26,9 +30,15 @@ import "./App.css";
  * 
  * */
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <></>;
+  return (
+    <>
+      <Heading />
+      <Message />
+      <Languages />
+      <Inputs />
+      {<button>New Game</button>}
+    </>
+  );
 }
 
 export default App;
