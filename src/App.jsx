@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./App.css";
+import { languages } from "./languages.js";
 import Heading from "./component/Heading";
-import Message from "./component/Message";
+import Status from "./component/Status";
 import Languages from "./component/Languages";
 import Inputs from "./component/Inputs";
 /*# What are the main containers of elements 
@@ -30,11 +31,19 @@ import Inputs from "./component/Inputs";
  * 
  * */
 function App() {
+  const language = languages.map((lang) => (
+    <Languages
+      key={lang.name}
+      name={lang.name}
+      backgroundColor={lang.backgroundColor}
+      color={lang.color}
+    />
+  ));
   return (
     <>
       <Heading />
-      <Message />
-      <Languages />
+      <Status />
+      <div className="language-container">{language}</div>
       <Inputs />
       {<button>New Game</button>}
     </>

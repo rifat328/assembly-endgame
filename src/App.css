@@ -31,14 +31,17 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+
 }
 
 .heading {
     color: #F9F4DA;
     text-align: center;
     font-weight: 500;
-    font-size: 1.25;
+    font-size: 1.25rem;
     line-height: 1.663;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.2rem;
 }
 
 .sub-heading {
@@ -46,4 +49,53 @@ body {
     text-align: center;
     font-size: 0.875rem;
     line-height: 1.14rem;
+    max-width: 21.875rem;
+    padding-bottom: 0.2rem;
+}
+
+.status-section {
+    width: 100%;
+    background-color: #10A95B;
+    text-align: center;
+
+    padding-block: 0.375rem;
+    border-radius: 0.25rem;
+    margin-top: 1.25rem;
+
+}
+
+.status-heading {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.62875rem;
+    color: #F9F4DA;
+}
+
+.status-message {
+    padding-left: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.303rem;
+    color: #F9F4DA;
+
+}
+
+/* **********************
+* language component *
+********************** */
+.language-container {
+    display: flex;
+    width: 21.875rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
+    margin-block: 2.25rem;
+}
+
+.language-container>* {
+    border-radius: 0.188rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 0.978rem;
+    padding: 0.281rem;
 }
