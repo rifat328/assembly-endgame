@@ -52,7 +52,12 @@ function App() {
   const inputes = alphabet
     .split("")
     .map((char, index) => (
-      <Inputs key={index} gussedLetters={[""]} letter={char.toUpperCase()} />
+      <Inputs
+        key={index}
+        gussedLetters={gussedLetters}
+        setGussedLetters={setGussedLetters}
+        letter={char.toUpperCase()}
+      />
     ));
 
   return (

@@ -4,11 +4,14 @@ const Inputs = (props) => {
   // const gussedLetter = (letter) => {
   //   setGussedLetters((letter) => [...gussedLetters].push(letter));
   // };
-  return (
-    <button onClick={() => [...gussedLetters, props.letter]}>
-      {props.letter}
-    </button>
-  );
+  const handleClick = () => {
+    props.setGussedLetters((prevLetters) =>
+      [...prevLetters].includes(props.letter)
+        ? [...prevLetters]
+        : [...prevLetters, props.letter]
+    );
+  };
+  return <button onClick={handleClick}>{props.letter}</button>;
 };
 
 export default Inputs;
