@@ -6,6 +6,7 @@ import Status from "./component/Status";
 import Languages from "./component/Languages";
 import Inputs from "./component/Inputs";
 import { nanoid } from "nanoid";
+import clsx from "clsx";
 /*# What are the main containers of elements 
     i need in this app?
     => * need heading and sub headings , then game won and loss section based on
@@ -42,10 +43,39 @@ function App() {
   ));
   const [currentWord, setCurrentWord] = useState("react");
   const [gussedLetters, setGussedLetters] = useState([]);
-  console.log(gussedLetters);
+
+  let wrongGuessCount = gussedLetters.filter(
+    (letter) => !currentWord.includes(letter.toLowerCase())
+  ).length;
+  //  Alternative approach with reducer()-------
+  //  const wrongGuessCount = gussedLetters.reduce((count, letter) => {
+  //   return currentWord.toLowerCase().includes(letter.toLowerCase())
+  //     ? count
+  //     : count + 1;
+  // }, 0);
+  console.log(wrongGuessCount);
+
+  const isCorrect = currentWord
+    .toUpperCase()
+    .split("")
+    .map((letter) => (gussedLetters.includes(letter) ? true : false));
+
+  const isWrong = !currentWord
+    .toUpperCase()
+    .split("")
+    .map((letter) => gussedLetters.includes(letter));
+  const visibility = clsx({
+    "correct-guess": isCorrect,
+    "wrong-guess": isWrong,
+  });
+
   const letterElements = currentWord
     .split("")
-    .map((char) => <span key={nanoid()}>{char.toUpperCase()}</span>);
+    .map((char) => (
+      <span key={nanoid()}>
+        {gussedLetters.includes(char) ? char.toUpperCase() : ""}
+      </span>
+    ));
 
   // keyboard
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
