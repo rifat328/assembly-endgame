@@ -56,6 +56,7 @@ function App() {
         key={index}
         gussedLetters={gussedLetters}
         setGussedLetters={setGussedLetters}
+        currentWord={currentWord}
         letter={char.toUpperCase()}
       />
     ));
