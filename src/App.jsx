@@ -41,14 +41,19 @@ function App() {
     (letter) => !currentWord.includes(letter.toLowerCase())
   ).length;
   //wrongGuessCount & index & loss class
-  const language = languages.map((lang) => (
-    <Languages
-      key={lang.name}
-      name={lang.name}
-      backgroundColor={lang.backgroundColor}
-      color={lang.color}
-    />
-  ));
+  const language = languages.map((lang, index) => {
+    const isLanguageLost = index < wrongGuessCount;
+
+    return (
+      <Languages
+        key={lang.name}
+        name={lang.name}
+        backgroundColor={lang.backgroundColor}
+        color={lang.color}
+        className={isLanguageLost ? "lost" : ""}
+      />
+    );
+  });
 
   //  Alternative approach with reducer()-------
   //  const wrongGuessCount = gussedLetters.reduce((count, letter) => {
@@ -58,28 +63,14 @@ function App() {
   // }, 0);
   console.log(wrongGuessCount);
 
-  const isCorrect = currentWord
-    .toUpperCase()
-    .split("")
-    .map((letter) => (gussedLetters.includes(letter) ? true : false));
-
-  const isWrong = !currentWord
-    .toUpperCase()
-    .split("")
-    .map((letter) => gussedLetters.includes(letter));
-  const visibility = clsx({
-    "correct-guess": isCorrect,
-    "wrong-guess": isWrong,
-  });
-
   const letterElements = currentWord
     .split("")
     .map((char) => (
       <span key={nanoid()}>
-        {gussedLetters.includes(char) ? char.toUpperCase() : ""}
+        {gussedLetters.includes(char.toUpperCase()) ? char.toUpperCase() : ""}
       </span>
     ));
-
+  console.log(gussedLetters);
   // keyboard
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const inputes = alphabet
@@ -94,15 +85,53 @@ function App() {
       />
     ));
 
+  // const isGameOver = () => {
+  //   if (wrongGuessCount > language.length - 1) {
+  //     wrongGuessCount = language.length - 1;
+  //   }
+  //   language.length - 1 === wrongGuessCount || isCorrect ? true : false;
+  // };
+  const isGameWon = currentWord
+    .toUpperCase()
+    .split("")
+    .every((letter) => gussedLetters.includes(letter));
+  const isGameLost = wrongGuessCount >= languages.length - 1;
+  const isGameOver = isGameWon || isGameLost;
+
+  //Status objects to be passed as props to set status section
+
+  // console.log(`is game won : ${isGameWon}`);
+  // console.log(`is guessed Letters : ${gussedLetters}`);
+  // console.log(wrongGuessCount);
+  console.log(isGameOver);
+  const newGame = () => {
+    setGussedLetters([]);
+  };
+
+  /**
+   * Backlog:
+   *
+   * - Farewell messages in status section
+   * - Fix a11y issues
+   * - Make the new game button work
+   * - Choose a random word from a list of words
+   * - Confetti drop when the user wins
+   */
   return (
     <>
       <Heading />
-      <Status />
+
+      <Status gameOver={isGameOver} gameWon={isGameWon} />
+
       <div className="language-container">{language}</div>
       <section className="word">{letterElements}</section>
       <section className="keyboard">{inputes}</section>
       <section className="button-container">
-        {<button className="new-game">New Game</button>}
+        {isGameOver && (
+          <button className="new-game" onClick={newGame}>
+            New Game
+          </button>
+        )}
       </section>
     </>
   );

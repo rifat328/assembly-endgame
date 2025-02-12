@@ -56,7 +56,8 @@ body {
 
 .status-section {
     width: 100%;
-    background-color: #10A95B;
+    min-height: 3.6875rem;
+    background-color: transparent;
     text-align: center;
 
     padding-block: 0.375rem;
@@ -92,6 +93,7 @@ body {
     justify-content: center;
     align-self: center;
     margin: 2.25rem auto;
+
 }
 
 .language-container>* {
@@ -100,6 +102,7 @@ body {
     font-size: 0.75rem;
     line-height: 0.978rem;
     padding: 0.281rem;
+    position: relative;
 }
 
 section.language.lost::before {
@@ -208,5 +211,12 @@ button.new-game {
     border-radius: 0.25rem;
     background-color: #11B5E5;
     margin-top: 5rem;
+    cursor: pointer;
 
+}
+
+button.new-game:hover {
+
+    box-shadow: 0.2rem 0.4rem 0.5rem #6bbed8;
+    color: #F9F4DA;
 }
