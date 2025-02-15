@@ -111,7 +111,7 @@ function App() {
   /**
    * Backlog:
    *
-   * - Farewell messages in status section
+   * - >>Farewell messages in status section
    * - Fix a11y issues
    * - Make the new game button work (Half Done)
    * - Choose a random word from a list of words
