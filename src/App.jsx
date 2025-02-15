@@ -40,6 +40,7 @@ function App() {
   let wrongGuessCount = gussedLetters.filter(
     (letter) => !currentWord.includes(letter.toLowerCase())
   ).length;
+
   //wrongGuessCount & index & loss class
   const language = languages.map((lang, index) => {
     const isLanguageLost = index < wrongGuessCount;
@@ -123,11 +124,12 @@ function App() {
   /**
    * Backlog:
    *
-   * - >>Farewell messages in status section
-   * - Fix a11y issues
+   * - >>Farewell messages in status section [Done]
+   *! - Fix a11y issues
    * - Make the new game button work (Half Done)
    * - Choose a random word from a list of words
-   * - Confetti drop when the user wins
+   * - Confetti drop when the user wins.
+   * - Game End App Broke Bug Fix needed.
    */
   console.log(
     "first render languages[wrongGuessCount - 1].name :::" +
