@@ -70,7 +70,19 @@ function App() {
         {gussedLetters.includes(char.toUpperCase()) ? char.toUpperCase() : ""}
       </span>
     ));
-  console.log(gussedLetters);
+  //--------------------------------------------------------------------------------------------------------------------??
+  //Feature : fareWell Message by language
+  const lastGuessedLetter = gussedLetters[gussedLetters.length - 1];
+  const isLastGusessedLetterIncorrect =
+    lastGuessedLetter &&
+    !currentWord.toUpperCase().split("").includes(lastGuessedLetter);
+  console.log(`currentWord :${currentWord}`);
+  console.log(`gussedLetters :${gussedLetters}`);
+  console.log(`lastGuessedLetter :${lastGuessedLetter}`);
+  console.log(
+    `isLastGusessedLetterIncorrect :${isLastGusessedLetterIncorrect}`
+  );
+
   // keyboard
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const inputes = alphabet
@@ -100,10 +112,10 @@ function App() {
 
   //Status objects to be passed as props to set status section
 
-  // console.log(`is game won : ${isGameWon}`);
-  // console.log(`is guessed Letters : ${gussedLetters}`);
-  // console.log(wrongGuessCount);
-  console.log(isGameOver);
+  console.log(`is game won : ${isGameWon}`);
+  console.log(`is guessed Letters : ${gussedLetters}`);
+  console.log(wrongGuessCount);
+  console.log(`isGameOver ${isGameOver}`);
   const newGame = () => {
     setGussedLetters([]);
   };
@@ -117,11 +129,22 @@ function App() {
    * - Choose a random word from a list of words
    * - Confetti drop when the user wins
    */
+  console.log(
+    "first render languages[wrongGuessCount - 1].name :::" +
+      languages[wrongGuessCount].name
+  );
+  // language={languages[wrongGuessCount - 1].name}
   return (
     <>
       <Heading />
 
-      <Status gameOver={isGameOver} gameWon={isGameWon} />
+      <Status
+        gameOver={isGameOver}
+        gameWon={isGameWon}
+        gameLost={isGameLost}
+        isLastGusessedLetterIncorrect={isLastGusessedLetterIncorrect}
+        wrongGuessCount={wrongGuessCount}
+      />
 
       <div className="language-container">{language}</div>
       <section className="word">{letterElements}</section>
