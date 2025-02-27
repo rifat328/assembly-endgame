@@ -11,8 +11,12 @@ const Inputs = (props) => {
   const buttonClass = clsx({
     "btn-right": isGuessed && isCorrect,
     "btn-wrong": isGuessed && !isCorrect,
+    "btn-disabled": props.gameOver,
   });
   const handleClick = () => {
+    if (props.gameOver === true) {
+      return;
+    }
     props.setGussedLetters((prevLetters) =>
       [...prevLetters].includes(props.letter)
         ? [...prevLetters]
@@ -20,7 +24,12 @@ const Inputs = (props) => {
     );
   };
   return (
-    <button className={buttonClass} onClick={handleClick}>
+    <button
+      aria-label={`Letter ${props.letter}`}
+      aria-disabled={props.gussedLetters.includes(props.letter)}
+      className={buttonClass}
+      onClick={handleClick}
+    >
       {props.letter}
     </button>
   );

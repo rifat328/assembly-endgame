@@ -212,6 +212,11 @@ section.keyboard>button.btn-wrong {
     background-color: rgb(192, 60, 60);
 }
 
+section.keyboard>button.btn-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 section.button-container {
     display: flex;
     justify-content: center;

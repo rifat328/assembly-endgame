@@ -23,7 +23,12 @@ const Status = (props) => {
   // );
   return (
     //! Render {{Conditional}}
-    <div className="status-section" style={background}>
+    <div
+      className="status-section"
+      style={background}
+      aria-live="polite"
+      role="status"
+    >
       {!props.gameOver && props.isLastGusessedLetterIncorrect ? (
         <>
           <p className="farewell-message">

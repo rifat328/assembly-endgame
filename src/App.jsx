@@ -84,6 +84,12 @@ function App() {
     `isLastGusessedLetterIncorrect :${isLastGusessedLetterIncorrect}`
   );
 
+  const isGameWon = currentWord
+    .toUpperCase()
+    .split("")
+    .every((letter) => gussedLetters.includes(letter));
+  const isGameLost = wrongGuessCount >= languages.length - 1;
+  const isGameOver = isGameWon || isGameLost;
   // keyboard
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const inputes = alphabet
@@ -95,6 +101,7 @@ function App() {
         setGussedLetters={setGussedLetters}
         currentWord={currentWord}
         letter={char.toUpperCase()}
+        gameOver={isGameOver}
       />
     ));
 
@@ -104,12 +111,6 @@ function App() {
   //   }
   //   language.length - 1 === wrongGuessCount || isCorrect ? true : false;
   // };
-  const isGameWon = currentWord
-    .toUpperCase()
-    .split("")
-    .every((letter) => gussedLetters.includes(letter));
-  const isGameLost = wrongGuessCount >= languages.length - 1;
-  const isGameOver = isGameWon || isGameLost;
 
   //Status objects to be passed as props to set status section
 
@@ -124,12 +125,12 @@ function App() {
   /**
    * Backlog:
    *
-   * - >>Farewell messages in status section [Done]
+   * ✅- >>Farewell messages in status section [Done]
    *! - Fix a11y issues
    * - Make the new game button work (Half Done)
    * - Choose a random word from a list of words
    * - Confetti drop when the user wins.
-   * - Game End App Broke Bug Fix needed.
+   * -✅ Game End App Broke Bug Fix needed.
    */
   console.log(
     "first render languages[wrongGuessCount - 1].name :::" +
