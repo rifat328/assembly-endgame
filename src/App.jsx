@@ -8,6 +8,8 @@ import Inputs from "./component/Inputs";
 import { nanoid } from "nanoid";
 import { randomWord } from "./utility.js";
 import clsx from "clsx";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
 /*# What are the main containers of elements 
     i need in this app?
     => * need heading and sub headings , then game won and loss section based on
@@ -140,7 +142,7 @@ function App() {
    *!✅- Fix a11y issues
    * ✅ Make the new game button work (Half Done)
    * ✅ Choose a random word from a list of words
-   * - Confetti drop when the user wins.
+   * ✅ Confetti drop when the user wins.
    * ✅ Game End App Broke Bug Fix needed.
    */
   console.log(
@@ -148,8 +150,17 @@ function App() {
       languages[wrongGuessCount].name
   );
   // language={languages[wrongGuessCount - 1].name}
+  const { width, height } = useWindowSize();
+  console.log(`width : ${width} height : ${height}`);
   return (
     <>
+      <Confetti
+        width={width}
+        height={height}
+        numberOfPieces={1000}
+        recycle={false}
+        run={isGameWon}
+      />
       <Heading />
 
       <Status
