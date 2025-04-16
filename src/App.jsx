@@ -6,6 +6,7 @@ import Status from "./component/Status";
 import Languages from "./component/Languages";
 import Inputs from "./component/Inputs";
 import { nanoid } from "nanoid";
+import { randomWord } from "./utility.js";
 import clsx from "clsx";
 /*# What are the main containers of elements 
     i need in this app?
@@ -16,7 +17,7 @@ import clsx from "clsx";
     * Render new game button on when game won/loss 
     *  
 
-  # What values will needed to be saved in state
+  # What values will be needed to be saved in state
     vs what values can be derived from state?
     => * randomly generated word can be stored on state,
        * input char can be stored based on that we change field content 
@@ -28,15 +29,17 @@ import clsx from "clsx";
  * * if clicked char mached with stored word then 
  * no change of color on input field char 
  * if not it char will turned red and a programming language will be eleminated ,
- * also that keybord button will turn red . other wise green if correct
+ * also that keybord button will turned red . other wise green if correct
  *  => so we need keydown and clicked event  
  * 
  * */
 function App() {
   // State Values
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => randomWord());
   const [gussedLetters, setGussedLetters] = useState([]);
+  console.log(`currentWord :${currentWord}`);
   //Derived Value
+  const numberOfGuessLeft = languages.lengthm - 1;
   let wrongGuessCount = gussedLetters.filter(
     (letter) => !currentWord.includes(letter.toLowerCase())
   ).length;
@@ -90,7 +93,9 @@ function App() {
     .every((letter) => gussedLetters.includes(letter));
   const isGameLost = wrongGuessCount >= languages.length - 1;
   const isGameOver = isGameWon || isGameLost;
+  //----------------------------------------------------------
   // keyboard
+  //----------------------------------------------------------
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const inputes = alphabet
     .split("")
@@ -120,17 +125,18 @@ function App() {
   console.log(`isGameOver ${isGameOver}`);
   const newGame = () => {
     setGussedLetters([]);
+    setCurrentWord(randomWord());
   };
 
   /**
    * Backlog:
    *
    * ✅- >>Farewell messages in status section [Done]
-   *! - Fix a11y issues
-   * - Make the new game button work (Half Done)
-   * - Choose a random word from a list of words
+   *!✅- Fix a11y issues
+   * ✅ Make the new game button work (Half Done)
+   * ✅ Choose a random word from a list of words
    * - Confetti drop when the user wins.
-   * -✅ Game End App Broke Bug Fix needed.
+   * ✅ Game End App Broke Bug Fix needed.
    */
   console.log(
     "first render languages[wrongGuessCount - 1].name :::" +
@@ -151,6 +157,26 @@ function App() {
 
       <div className="language-container">{language}</div>
       <section className="word">{letterElements}</section>
+
+      {/* Combined visually-hidden aria-live region for status updates #A11y Apply*/}
+      <section className="sr-only" aria-live="polite" role="status">
+        <p>
+          {currentWord.includes(lastGuessedLetter)
+            ? `Correct! The letter is ${lastGuessedLetter} is in the word`
+            : `Sorry , the letter ${lastGuessedLetter} is not in the word`}
+          You have {numberOfGuessLeft} attempts left.
+        </p>
+        <p>
+          Current word :
+          {currentWord
+            .split("")
+            .map((letter) =>
+              gussedLetters.includes(letter) ? letter + "." : "blank"
+            )
+            .join(" ")}
+        </p>
+      </section>
+
       <section className="keyboard">{inputes}</section>
       <section className="button-container">
         {isGameOver && (

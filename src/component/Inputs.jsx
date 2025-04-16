@@ -28,6 +28,7 @@ const Inputs = (props) => {
       aria-label={`Letter ${props.letter}`}
       aria-disabled={props.gussedLetters.includes(props.letter)}
       className={buttonClass}
+      disabled={props.gameOver}
       onClick={handleClick}
     >
       {props.letter}
