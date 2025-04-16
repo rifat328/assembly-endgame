@@ -58,7 +58,14 @@ function App() {
       />
     );
   });
+  // -------------------Game LOgic Conditions-------------------
 
+  const isGameWon = currentWord
+    .toUpperCase()
+    .split("")
+    .every((letter) => gussedLetters.includes(letter));
+  const isGameLost = wrongGuessCount >= languages.length - 1;
+  const isGameOver = isGameWon || isGameLost;
   //  Alternative approach with reducer()-------
   //  const wrongGuessCount = gussedLetters.reduce((count, letter) => {
   //   return currentWord.toLowerCase().includes(letter.toLowerCase())
@@ -67,13 +74,17 @@ function App() {
   // }, 0);
   console.log(wrongGuessCount);
 
-  const letterElements = currentWord
-    .split("")
-    .map((char) => (
-      <span key={nanoid()}>
-        {gussedLetters.includes(char.toUpperCase()) ? char.toUpperCase() : ""}
+  const letterElements = currentWord.split("").map((char) => {
+    const shouldRevealLetter = isGameLost || gussedLetters.includes(char);
+    const letterClassName = clsx(
+      isGameLost && !gussedLetters.includes(char) && "lost-letters"
+    );
+    return (
+      <span className={letterClassName} key={nanoid()}>
+        {shouldRevealLetter ? char.toUpperCase() : ""}
       </span>
-    ));
+    );
+  });
   //--------------------------------------------------------------------------------------------------------------------??
   //Feature : fareWell Message by language
   const lastGuessedLetter = gussedLetters[gussedLetters.length - 1];
@@ -87,12 +98,6 @@ function App() {
     `isLastGusessedLetterIncorrect :${isLastGusessedLetterIncorrect}`
   );
 
-  const isGameWon = currentWord
-    .toUpperCase()
-    .split("")
-    .every((letter) => gussedLetters.includes(letter));
-  const isGameLost = wrongGuessCount >= languages.length - 1;
-  const isGameOver = isGameWon || isGameLost;
   //----------------------------------------------------------
   // keyboard
   //----------------------------------------------------------
@@ -185,6 +190,15 @@ function App() {
           </button>
         )}
       </section>
+
+      {isGameOver && isGameLost ? (
+        <section className="game-lost-feedback">
+          <h2>
+            The word was: <span>{currentWord}</span>
+          </h2>
+          <p>Better luck next time!</p>
+        </section>
+      ) : null}
     </>
   );
 }

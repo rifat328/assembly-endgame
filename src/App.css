@@ -38,7 +38,7 @@ body {
     color: #F9F4DA;
     text-align: center;
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 2.25rem;
     line-height: 1.663;
     margin-bottom: 0.25rem;
     padding-bottom: 0.2rem;
@@ -224,11 +224,11 @@ section.button-container {
 }
 
 button.new-game {
-    width: 14.25rem;
-    height: 2.5rem;
+    width: 16.25rem;
+    height: 3rem;
     font-family: inherit;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.6rem;
     line-height: 1.30rem;
     padding: 0.59375rem 0.75rem;
     border: 1px solid #D7D7D7;
@@ -236,7 +236,7 @@ button.new-game {
     background-color: #11B5E5;
     margin-top: 5rem;
     cursor: pointer;
-
+    color: rgb(54, 56, 56);
 }
 
 button.new-game:hover {
@@ -256,4 +256,47 @@ button.new-game:hover {
     white-space: nowrap;
     /* added line */
     border: 0;
+}
+
+/* --------------- game over lost feedback --------------- */
+.game-lost-feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+}
+
+.game-lost-feedback h2 {
+    color: #F9F4DA;
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.62875rem;
+    text-align: center;
+}
+
+.game-lost-feedback h2 span {
+    color: #FCBA29;
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.62875rem;
+    text-align: center;
+    text-decoration: underline;
+    padding-left: 0.5rem;
+}
+
+.game-lost-feedback p {
+    color: #F9F4DA;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.62875rem;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* ---missed letters or lost letters clsx -- */
+.lost-letters {
+    color: rgb(255, 10, 10);
 }
